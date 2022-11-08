@@ -1,23 +1,50 @@
-import logo from './logo.svg';
-import './App.css';
+import { Routes, Route, Link } from "react-router-dom";
+
+import Home from "./Home";
+import Info from "./Info";
+import { useState } from "react";
+import Contact from "./Contact";
+
+const API_KEY = process.env.REACT_APP_API_KEY;
+console.log(API_KEY);
 
 function App() {
+  const [text, setText] = useState("home");
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
+    <div className="contain">
+      <header>
+        <h1>Cover</h1>
+        <div className="infoHeader">
+          <Link
+            to="/"
+            onClick={() => setText("home")}
+            className={`home ${text === "home" ? "target" : null}`}
+          >
+            Home
+          </Link>
+          <Link
+            to="/info"
+            onClick={() => setText("info")}
+            className={`home ${text === "info" ? "target" : null}`}
+          >
+            Features
+          </Link>
+          <Link
+            to="/contact"
+            onClick={() => setText("contact")}
+            className={`home ${text === "contact" ? "target" : null}`}
+          >
+            Contact
+          </Link>
+        </div>
       </header>
+
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/info" element={<Info />} />
+        <Route path="/contact" element={<Contact />} />
+      </Routes>
     </div>
   );
 }
